@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flexy.css">
+    <script src="flexy.js"></script>
+    <script src="calendar.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="main" style="background: rebeccapurple; width: 100%;height: 100%;"></div>
+    <script>
+        let main = new Flexy("#main", "column");
+        let cal=new Calendar();
+        main.add(cal.getCalendar(),"stretch")
+
+        
+
+    </script>
+</body>
+
+</html>

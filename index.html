@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flexy.css">
+    <script src="flexy.js"></script>
+    <style>
+
+        .margin {
+            margin: 5px;
+        }
+
+        .label-style {
+            color: white;
+            margin-right: 5px;
+            min-width: 12ch;
+        }
+
+        .row-style {
+            margin-bottom: 5px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" style="background: rebeccapurple; width: 100%;height: 100%;"></div>
+    <script>
+
+
+        function addRow(label) {
+            let f = Flexy.Frame("row").class("row-style");
+            let l = Flexy.Label(label + ":").class("label-style");
+            let i = Flexy.Input("text").id("input-" + label).variable("var-" + label);
+            f.add(l).add(i);
+            return f;
+        }
+
+        let main = new Flexy("#main", "column");
+        let frame = Flexy.Frame("column").style({ background: "green" });
+        main.add(frame, "start");
+        frame.add(addRow("Surname"))
+            .add(addRow("Lastname"))
+            .add(Flexy.Label("").style({ marginTop: "25px" }).value("Hej ${var-Surname} ${var-Lastname}"), "start")
+            .add(Flexy.Label("").style({ marginTop: "25px" }).value("Kan jag säga ${var-Surname}?"), "start");
+
+        let s = Flexy.Select("cars").variable("car");
+        s.add(Flexy.Option("volvo", "Volvo")).add(Flexy.Option("saab", "Saab"));
+        frame.add(s, "start");
+
+        let l = Flexy.Label("").value("Du har valt ${car}")
+        frame.add(l);
+
+        let longRow = Flexy.Frame("row", "scroll").style({ background: "yellow" });
+        main.add(longRow);
+
+        for (let i = 0; i < 20; i++) {
+            longRow.add(Flexy.Button("L" + i).class("margin"));
+        }
+
+        let checkboxes = Flexy.Frame("column");
+        main.add(checkboxes);
+        checkboxes.add(Flexy.Frame("row").add(Flexy.Label("0-5").style({ minWidth: "5ch" })).add(Flexy.Input("checkbox").variable("age.first")));
+        checkboxes.add(Flexy.Frame("row").add(Flexy.Label("5-10").style({ minWidth: "5ch" })).add(Flexy.Input("checkbox").variable("age.second")));
+
+
+        let radioButtons = Flexy.Frame("column");
+        main.add(radioButtons);
+        radioButtons.add(Flexy.Frame("row").add(Flexy.Label("0-5").style({ minWidth: "5ch" })).add(Flexy.Input("radio", "0", "age").variable("age").variable("age2")));
+        radioButtons.add(Flexy.Frame("row").add(Flexy.Label("5-10").style({ minWidth: "5ch" })).add(Flexy.Input("radio", 5, "age").variable("age")));
+        radioButtons.add(Flexy.Frame("row").add(Flexy.Label("10-15").style({ minWidth: "5ch" })).add(Flexy.Input("radio", 10, "age").variable("age")));
+
+        radioButtons.add(Flexy.Label("Värde på age:").value("Värde på age:${age}"));
+
+        let addFrame=Flexy.Frame("row");
+        addFrame.add(Flexy.Input("text").variable("arg1").value("0")).add(Flexy.Label(" + ")).add(Flexy.Input("text").variable("arg2").value("0"));
+        main.add(addFrame);
+        main.add(Flexy.Label("").value("${arg1} + ${arg2} = {${arg1} + ${arg2}}"))
+
+    </script>
+</body>
+
+</html>

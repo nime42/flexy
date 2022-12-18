@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flexy.css">
+    <script src="flexy.js"></script>
+    <script src="menu.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="main" style="background: rebeccapurple; width: 100%;height: 100%;"></div>
+    <script>
+        let main = new Flexy("#main", "column");
+        let menu=new Menu("left","red","RR");
+        main.add(menu.getMenu())
+
+
+
+        let mailPage=Flexy.Frame("row").style({background:"blue"}).class("pages");
+        let configPage=Flexy.Frame("row").style({background:"yellow"}).class("pages");
+        let uconfigPage=Flexy.Frame("row").style({background:"green"}).class("pages");
+        main.add(mailPage,"stretch")
+        .add(configPage,"stretch").add(uconfigPage,"stretch");
+
+        let f=(page) => {
+            return ()=>{
+                Flexy.search(".pages").forEach(p=>{p.visible(false)});
+                page.visible(true);
+            }
+        }
+
+        menu.addMenu("mails",f(mailPage));
+        menu.addMenu("config",f(configPage));
+        menu.addMenu("user config",f(uconfigPage));
+        menu.select(0);
+
+        
+
+    </script>
+</body>
+
+</html>
